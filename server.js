@@ -1,34 +1,13 @@
-// Import necessary modules (express for the server, bodyParser for handling JSON, cors for bypassing CORS restrictions)
-const fs = require('fs');
-const express = require('express');
-const bodyParser = require('body-parser');
-const cors = require('cors');
-
-// Initialize the Express app and set the port
+// Initialize the Express app
 const app = express();
-const port = 5500;
 
 // Use bodyParser to handle JSON data and cors to apply CORS policy
 app.use(bodyParser.json());
 app.use(cors());
 
 const users = [];
-
-// Endpoint for login
-app.post('/api/index', (req, res) => {
-    const { username, password } = req.body;
-
-    // Find the user in the array based on username and password
-    const user = users.find(u => u.username === username && u.password === password);
-
-    if (user) {
-        // Successful login
-        res.json({ success: true, username: user.username });
-    } else {
-        // Failed login
-        res.status(401).json({ success: false, message: 'Invalid username or password' });
-    }
-});
+const posts = [];
+const notifications = [];
 
 // Endpoint for user registration
 app.post('/api/register', (req, res) => {
@@ -51,18 +30,10 @@ app.post('/api/register', (req, res) => {
         const newUser = { username, password, email, id: users.length + 1 };
         users.push(newUser);
 
-        // Update the users.json file (write to file)
-        fs.writeFileSync('users.json', JSON.stringify(users, null, 2));
-
         // Send a success response
         res.json({ success: true, message: 'Registration successful', userId: newUser.id });
     }
 });
-
-// An array to store the messages
-const posts = [];
-// An array to store notifications
-const notifications = [];
 
 // Define a POST endpoint '/api/posts' to add new messages to the 'posts' array
 app.post('/api/posts', (req, res) => {
@@ -89,7 +60,19 @@ app.get('/api/notifications', (req, res) => {
     res.json(notifications);
 });
 
-// Start the server on the specified port and log a message to the console
-app.listen(port, () => {
-    console.log(`Server is running at http://localhost:${port}`);
-});
+// This part will not run in the browser
+if (typeof window === 'undefined') {
+    const fs = require('fs');
+    const express = require('express');
+    const bodyParser = require('body-parser');
+    const cors = require('cors');
+
+    // Initialize the Express app and set the port
+    const app = express();
+    const port = 5500;
+
+    // Start the server on the specified port and log a message to the console
+    app.listen(port, () => {
+        console.log(`Server is running at http://localhost:${port}`);
+    });
+}
