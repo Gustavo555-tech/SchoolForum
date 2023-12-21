@@ -238,32 +238,3 @@ nav {
     display: none;
 }
 
-/* Add this to your style.css */
-.menu-container {
-    position: relative;
-}
-
-.menu-slate {
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: white;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    padding: 10px;
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    display: none;
-}
-
-.menu-slate li {
-    padding: 8px;
-    border-bottom: 1px solid #eee;
-}
-
-.menu-slate li:last-child {
-    border-bottom: none;
-}
