@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     profilePicture.addEventListener('click', function (event) {
         event.stopPropagation();
+        console.log('Profile picture clicked'); // Add this line
         menuContainer.classList.toggle('hidden');
     });
 
