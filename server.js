@@ -1,13 +1,33 @@
+const express = require('express');
+const cors = require('cors');
+
 // Initialize the Express app
 const app = express();
 
 // Use bodyParser to handle JSON data and cors to apply CORS policy
-app.use(bodyParser.json());
+app.use(express.json());
 app.use(cors());
 
 const users = [];
 const posts = [];
 const notifications = [];
+
+// Endpoint for login
+app.post('/api/index', (req, res) => {
+    const { username, password } = req.body;
+
+    // Find the user in the array based on username and password
+    const user = users.find(u => u.username === username && u.password === password);
+
+    if (user) {
+        // Successful login
+        res.json({ success: true, username: user.username });
+    } else {
+        // Failed login
+        res.status(401).json({ success: false, message: 'Invalid username or password' });
+    }
+});
+
 
 // Endpoint for user registration
 app.post('/api/register', (req, res) => {
@@ -41,7 +61,7 @@ app.post('/api/posts', (req, res) => {
     const message = req.body.message;
 
     // Add the message to the 'posts' array along with the current timestamp
-    const timestamp = new Date().toLocaleString(); // Generate current timestamp in short format
+    const timestamp = new Date().toISOString(); // Use toISOString for a standardized timestamp
     posts.push({ message, timestamp });
 
     // Send a JSON response to indicate success
@@ -60,19 +80,8 @@ app.get('/api/notifications', (req, res) => {
     res.json(notifications);
 });
 
-// This part will not run in the browser
-if (typeof window === 'undefined') {
-    const fs = require('fs');
-    const express = require('express');
-    const bodyParser = require('body-parser');
-    const cors = require('cors');
-
-    // Initialize the Express app and set the port
-    const app = express();
-    const port = 5500;
-
-    // Start the server on the specified port and log a message to the console
-    app.listen(port, () => {
-        console.log(`Server is running at http://localhost:${port}`);
-    });
-}
+// Set the port to 5500 and start the server
+const port = 5500;
+app.listen(port, () => {
+    console.log(`Server is running at http://localhost:${port}`);
+});
