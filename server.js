@@ -58,6 +58,33 @@ app.post('/api/register', async (req, res) => {
     }
 });
 
+// Endpoint for updating user profile
+app.put('/api/profile/:userId', (req, res) => {
+    const userId = req.params.userId;
+    const { username, email } = req.body;
+
+    // Find the user in the array based on userId
+    const user = users.find(u => u.id === userId);
+
+    if (user) {
+        // Update user profile
+        user.username = username || user.username;
+        user.email = email || user.email;
+
+        // Update the users.json file
+        fs.promises.writeFile('users.json', JSON.stringify(users, null, 2), 'utf-8')
+            .then(() => {
+                res.json({ success: true, message: 'Profile updated successfully', user });
+            })
+            .catch(error => {
+                console.error('Error writing to file:', error);
+                res.status(500).json({ success: false, message: 'Internal server error' });
+            });
+    } else {
+        res.status(404).json({ success: false, message: 'User not found' });
+    }
+});
+
 // Define a POST endpoint '/api/posts' to add new messages to the 'posts' array
 app.post('/api/posts', (req, res) => {
     // Retrieve the message from the request
