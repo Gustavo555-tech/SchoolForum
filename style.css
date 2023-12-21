@@ -239,9 +239,13 @@ nav {
 }
 
 /* Add this to your style.css */
+.menu-container {
+    position: relative;
+}
+
 .menu-slate {
     position: absolute;
-    top: calc(100% + 8px); /* Adjust the distance from the profile picture */
+    top: 100%;
     left: 50%;
     transform: translateX(-50%);
     background-color: white;
@@ -253,6 +257,7 @@ nav {
     margin: 0;
     padding: 0;
     display: none;
+    z-index: 1000; /* Ensure it's above other elements */
     min-width: 200px; /* Adjust the minimum width as needed */
 }
 
