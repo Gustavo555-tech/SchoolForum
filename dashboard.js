@@ -2,16 +2,16 @@ document.addEventListener('DOMContentLoaded', function () {
     var profilePicture = document.getElementById('profile-picture');
     var menuContainer = document.getElementById('menu-container');
 
+    // Voeg een click event listener toe aan de profielfoto
     profilePicture.addEventListener('click', function (event) {
         event.stopPropagation();
-        document.querySelector('.menu-slate').classList.toggle('hidden');
+        menuContainer.classList.toggle('hidden');
     });
 
     // Sluit het menu als er buiten wordt geklikt
     document.addEventListener('click', function closeMenu(event) {
-        var menuSlate = document.querySelector('.menu-slate');
-        if (!menuSlate.contains(event.target) && !profilePicture.contains(event.target)) {
-            menuSlate.classList.add('hidden');
+        if (!menuContainer.contains(event.target) && !profilePicture.contains(event.target)) {
+            menuContainer.classList.add('hidden');
         }
     });
 });
