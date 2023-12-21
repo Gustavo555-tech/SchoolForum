@@ -6,82 +6,29 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial scale=1.0">
     <title>SchoolForum Dashboard</title>
+    <link rel="stylesheet" href="style.css"> <!-- Link to your external CSS file -->
 </head>
-
-<style>
-    .menu {
-        position: absolute;
-        top: 60px;
-        /* Adjust as needed */
-        right: 10px;
-        /* Adjust as needed */
-        background-color: #fff;
-        border: 1px solid #ccc;
-        padding: 10px;
-        display: flex;
-        flex-direction: column;
-        z-index: 1;
-    }
-
-    .hidden {
-        display: none;
-    }
-</style>
 
 <body>
     <header>
         <img id="profile-picture" src="SchoolForumProfilePicture.png" alt="Profile Picture" onclick="toggleMenu()">
         <div id="menu" class="hidden">
-            <button id="settings-btn" onclick="openSettings()">Settings</button>
-            <button id="activity-btn" onclick="openYourActivity()">Your Activity</button>
-
+            <button onclick="openSettings()">Settings</button>
+            <button onclick="openYourActivity()">Your Activity</button>
         </div>
     </header>
 
     <!-- Menu Container -->
     <div id="profile-menu" class="menu hidden">
-        <button id="settings-btn">Settings</button>
-        <button id="activity-btn">Your Activity</button>
+        <button onclick="openSettings()">Settings</button>
+        <button onclick="openYourActivity()">Your Activity</button>
     </div>
-
 
     <div id="content">
         <!-- Content will be dynamically loaded here based on user actions -->
     </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const profilePicture = document.getElementById('profile-picture');
-            const menu = document.getElementById('menu');
-
-            profilePicture.addEventListener('click', function () {
-                menu.classList.toggle('hidden');
-            });
-
-            function loadContent(page) {
-                fetch(page)
-                    .then(response => response.text())
-                    .then(html => {
-                        document.getElementById('content').innerHTML = html;
-                    })
-                    .catch(error => console.error('Error:', error));
-            }
-
-            function openSettings() {
-                loadContent('settings.html');
-                menu.classList.add('hidden'); // Close the menu after clicking
-            }
-
-            function openYourActivity() {
-                loadContent('your-activity.html');
-                menu.classList.add('hidden'); // Close the menu after clicking
-            }
-
-            // Add event listeners for menu items
-            document.getElementById('settings-btn').addEventListener('click', openSettings);
-            document.getElementById('activity-btn').addEventListener('click', openYourActivity);
-        });
-    </script>
+    <script src="dashboard.js"></script> <!-- Link to your external JavaScript file -->
 </body>
 
 </html>
