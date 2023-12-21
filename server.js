@@ -5,6 +5,9 @@ const cors = require('cors');
 const fs = require('fs');
 const app = express();
 
+// Import the uuid library
+const { v4: uuidv4 } = require('uuid');
+
 // Use bodyParser to handle JSON data and cors to apply CORS policy
 app.use(express.json());
 app.use(cors());
@@ -17,46 +20,41 @@ const notifications = [];
 app.post('/api/index', (req, res) => {
     const { username, password } = req.body;
 
-    // Find the user in the array based on username and password
     const user = users.find(u => u.username === username && u.password === password);
 
     if (user) {
-        // Successful login
-        res.json({ success: true, username: user.username });
+        res.json({ success: true, username: user.username, userId: user.id });
     } else {
-        // Failed login
         res.status(401).json({ success: false, message: 'Invalid username or password' });
     }
 });
 
-
 // Endpoint for user registration
-app.post('/api/register', (req, res) => {
+app.post('/api/register', async (req, res) => {
     const { username, password, email } = req.body;
 
-    // Check for a valid email format
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
     if (!emailRegex.test(email)) {
         return res.status(400).json({ success: false, message: 'Invalid email format' });
     }
 
-    // Check if the email already exists
     const existingUser = users.find(u => u.username === username || u.email === email);
 
     if (existingUser) {
-        // Username or email already exists, send an error response
         res.status(409).json({ success: false, message: 'Username or email already exists' });
     } else {
-        // Add the new user to the array
-        const newUser = { username, password, email, id: users.length + 1 };
+        const userId = uuidv4(); // Generate a unique user ID
+        const newUser = { username, password, email, id: userId };
         users.push(newUser);
 
-        // Write the updated users array to the users.json file
-        fs.writeFile('users.json', JSON.stringify(users, null, 2), 'utf-8');
-
-        // Send a success response
-        res.json({ success: true, message: 'Registration successful', userId: newUser.id });
-
+        try {
+            await fs.writeFile('users.json', JSON.stringify(users, null, 2), 'utf-8');
+            res.json({ success: true, message: 'Registration successful', userId });
+        } catch (error) {
+            console.error('Error writing to file:', error);
+            res.status(500).json({ success: false, message: 'Internal server error' });
+        }
     }
 });
 
