@@ -239,6 +239,10 @@ nav {
 }
 
 /* Add this to your style.css */
+.menu-container {
+    position: relative;
+}
+
 .menu-slate {
     position: absolute;
     top: 100%;
@@ -249,14 +253,10 @@ nav {
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     padding: 10px;
-    z-index: 1000;
-    display: none;
-}
-
-.menu-slate ul {
     list-style-type: none;
-    padding: 0;
     margin: 0;
+    padding: 0;
+    display: none;
 }
 
 .menu-slate li {
