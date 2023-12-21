@@ -1,17 +1,17 @@
-// Inside your dashboard.js file
 document.addEventListener('DOMContentLoaded', function () {
     var profilePicture = document.getElementById('profile-picture');
     var menuContainer = document.getElementById('menu-container');
 
     profilePicture.addEventListener('click', function (event) {
         event.stopPropagation();
-        menuContainer.classList.toggle('hidden');
+        document.querySelector('.menu-slate').classList.toggle('hidden');
     });
 
-    // Close the menu if clicking outside
+    // Sluit het menu als er buiten wordt geklikt
     document.addEventListener('click', function closeMenu(event) {
-        if (!menuContainer.contains(event.target) && !profilePicture.contains(event.target)) {
-            menuContainer.classList.add('hidden');
+        var menuSlate = document.querySelector('.menu-slate');
+        if (!menuSlate.contains(event.target) && !profilePicture.contains(event.target)) {
+            menuSlate.classList.add('hidden');
         }
     });
 });
