@@ -49,7 +49,7 @@ app.post('/api/register', async (req, res) => {
         users.push(newUser);
 
         try {
-            await fs.writeFile('users.json', JSON.stringify(users, null, 2), 'utf-8');
+            await fs.promises.writeFile('users.json', JSON.stringify(users, null, 2), 'utf-8');
             res.json({ success: true, message: 'Registration successful', userId });
         } catch (error) {
             console.error('Error writing to file:', error);
