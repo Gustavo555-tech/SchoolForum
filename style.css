@@ -242,7 +242,8 @@ nav {
 .menu-slate {
     position: absolute;
     top: 100%;
-    left: 0;
+    left: 50%; /* Center the menu horizontally under the profile picture */
+    transform: translateX(-50%); /* Adjust for centering */
     background-color: white;
     border: 1px solid #ccc;
     border-radius: 8px;
