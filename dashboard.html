@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial scale=1.0">
+    <title>SchoolForum Dashboard</title>
+</head>
+
+<body>
+    <header>
+        <img id="profile-picture" src="SchoolForumProfilePicture.png" alt="Profile Picture" onclick="toggleMenu()">
+        <div id="menu" class="hidden">
+            <button onclick="openSettings()">Settings</button>
+            <button onclick="openYourActivity()">Your Activity</button>
+        </div>
+    </header>
+
+    <div id="content">
+        <!-- Content will be dynamically loaded here based on user actions -->
+    </div>
+
+    <script>
+        function toggleMenu() {
+            const menu = document.getElementById('menu');
+            menu.classList.toggle('hidden');
+        }
+
+        function openSettings() {
+            loadContent('settings.html');
+        }
+
+        function openYourActivity() {
+            loadContent('your-activity.html');
+        }
+
+        function loadContent(page) {
+            fetch(page)
+                .then(response => response.text())
+                .then(html => {
+                    document.getElementById('content').innerHTML = html;
+                })
+                .catch(error => console.error('Error:', error));
+        }
+    </script>
+</body>
+
+</html>
