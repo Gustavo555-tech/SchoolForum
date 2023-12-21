@@ -240,16 +240,11 @@ nav {
 
 /* Add this to your style.css */
 .menu-slate {
-    position: absolute;
-    top: 100%;
-    left: 0;
     background-color: white;
     border: 1px solid #ccc;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     padding: 10px;
-    z-index: 1000; /* Ensure it's above other elements */
-    display: none; /* Initially hidden */
 }
 
 .menu-slate ul {
