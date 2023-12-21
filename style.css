@@ -242,15 +242,15 @@ nav {
 .menu-slate {
     position: absolute;
     top: 100%;
-    left: 50%; /* Center the menu horizontally under the profile picture */
-    transform: translateX(-50%); /* Adjust for centering */
+    left: 50%;
+    transform: translateX(-50%);
     background-color: white;
     border: 1px solid #ccc;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     padding: 10px;
-    z-index: 1000; /* Ensure it's above other elements */
-    display: none; /* Initially hidden */
+    z-index: 1000;
+    display: none;
 }
 
 .menu-slate ul {
