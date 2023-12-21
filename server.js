@@ -52,7 +52,7 @@ app.post('/api/register', (req, res) => {
         users.push(newUser);
 
         // Write the updated users array to the users.json file
-        fs.writeFileSync('users.json', JSON.stringify(users, null, 2), 'utf-8');
+        fs.writeFile('users.json', JSON.stringify(users, null, 2), 'utf-8');
 
         // Send a success response
         res.json({ success: true, message: 'Registration successful', userId: newUser.id });
