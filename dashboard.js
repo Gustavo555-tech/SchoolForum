@@ -5,7 +5,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     profilePicture.addEventListener('click', function (event) {
         event.stopPropagation();
-        console.log('Profile picture clicked'); // Add this line
         menuContainer.classList.toggle('hidden');
     });
 
@@ -13,7 +12,6 @@ document.addEventListener('DOMContentLoaded', function () {
     document.addEventListener('click', function closeMenu(event) {
         if (!menuContainer.contains(event.target) && !profilePicture.contains(event.target)) {
             menuContainer.classList.add('hidden');
-            document.removeEventListener('click', closeMenu);
         }
     });
 });
