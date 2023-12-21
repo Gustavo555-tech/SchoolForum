@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 
 // Initialize the Express app
+const fs = require('fs');
 const app = express();
 
 // Use bodyParser to handle JSON data and cors to apply CORS policy
@@ -50,8 +51,12 @@ app.post('/api/register', (req, res) => {
         const newUser = { username, password, email, id: users.length + 1 };
         users.push(newUser);
 
+        // Write the updated users array to the users.json file
+        fs.writeFileSync('users.json', JSON.stringify(users, null, 2), 'utf-8');
+
         // Send a success response
         res.json({ success: true, message: 'Registration successful', userId: newUser.id });
+
     }
 });
 
