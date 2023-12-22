@@ -1,5 +1,5 @@
 // Voeg een eventlistener toe voor het meldingenicoon
-document.getElementById("notifications-btn").addEventListener("click", function () {
+document.getElementById("nav-notifications-btn").addEventListener("click", function () {
     // Toon of verberg het meldingencontainer wanneer het icoon wordt ingedrukt
     const notificationsContainer = document.getElementById("notifications-container");
 

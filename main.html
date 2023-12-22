@@ -20,7 +20,7 @@
             <img src="SchoolForumLogo.png" class="logo">
             <ul>
                 <!--insert notifications, create post and inbox icons-->
-                <li id="notifications-btn"> <img src="SchoolForumNotifications.png"></li>
+                <li id="nav-notifications-btn"><img src="SchoolForumNotifications.png"></li>
                 <li><img src="SchoolForumInbox.png"></li>
                 <li><img src="SchoolForumCreatePost.png"></li>
             </ul>
@@ -37,22 +37,41 @@
             </div>
             <!--add profile picture and online indicator-->
             <div class="nav-user-icon online">
-                <img id="profile-picture" src="SchoolForumProfilePicture.png" alt="School Forum Profile Picture" style="cursor: pointer;">
+                <img id="profile-picture" src="SchoolForumProfilePicture.png" alt="School Forum Profile Picture"
+                    style="cursor: pointer;">
                 <div id="menu-container" class="hidden">
-                    <div class="menu-slate">
-                        <!-- Here comes the content of your menu -->
+                    <!-- Your account button -->
+                    <li><button id="account-btn">Your account</button></li>
+                    <div id="account-menu" class="submenu hidden">
+                        <!-- Add options for changing email, password, and profile picture -->
                         <ul>
-                            <li>Menu-item 1</li>
-                            <li>Menu-item 2</li>
-                            <li>Menu-item 3</li>
+                            <li><button id="change-email-btn">Change Email</button></li>
+                            <li><button id="change-password-btn">Change Password</button></li>
+                            <li><button id="change-profile-btn">Change Profile Picture</button></li>
                         </ul>
                     </div>
 
+                    <div id="email-modal" class="modal hidden">
+                        <input type="text" id="new-email" placeholder="Enter new email">
+                        <button id="change-email-btn-modal">Change Email</button>
+                        <button id="close-email-btn-modal">Close</button>
+                    </div>
+                    
+
+                    <!-- Your activity button -->
+                    <li><button id="activity-btn">Your activity</button></li>
+                    <div id="activity-menu" class="submenu hidden">
+                        <!-- Add options for your activity -->
+                    </div>
+
+                    <!-- Notifications button -->
+                    <li><button id="notifications-btn">Notifications</button></li>
+                    <div id="notifications-menu" class="submenu hidden">
+                        <!-- Add options for notifications -->
+                    </div>
                 </div>
 
             </div>
-
-        </div>
     </nav>
     <!--make a container with all settings of left/right-sidebar and main-content-->
     <div class="container">
