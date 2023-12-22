@@ -110,7 +110,7 @@ document.addEventListener('DOMContentLoaded', function () {
         var rect = menu.getBoundingClientRect();
         var windowWidth = window.innerWidth;
         var menuWidth = menu.offsetWidth;
-        var offset = 10; // Adjust this value based on your preference
+        var offset = 50; // Adjust this value based on your preference
 
         // Calculate the new position
         var newPosition = windowWidth - rect.right - menuWidth - offset;
