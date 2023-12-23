@@ -77,42 +77,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-     // Function to handle changing password
-    function changePassword() {
-        // Ensure globalUserId is defined before accessing it
-        if (globalUserId) {
-            var newPasswordInput = document.getElementById('new-password');
-            var newPassword = newPasswordInput.value;
-
-            if (newPassword) {
-                // Make an AJAX request to update the password on the server
-                fetch(`/api/change-password/${globalUserId}`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ newPassword }),  // Send newPassword in the request body
-                })
-                    .then(response => response.json())
-                    .then(data => {
-                        console.log(data.message);
-                        alert(data.message);
-
-                        // Close the modal after changing password
-                        closePasswordModal();
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
-                    });
-            } else {
-                // Handle invalid password
-                alert('Invalid password');
-            }
-        } else {
-            console.error('globalUserId is not defined');
-        }
-    }
-
     // Function to validate email format
     function isValidEmail(email) {
         // Basic email validation (you may want to improve this)

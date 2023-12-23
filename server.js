@@ -4,7 +4,6 @@ const cors = require('cors');
 // Initialize the Express app
 const fs = require('fs');
 const app = express();
-const bcrypt = require('bcrypt');
 
 // Import the uuid library
 const { v4: uuidv4 } = require('uuid');
@@ -113,35 +112,6 @@ app.post('/api/change-email/:userId', (req, res) => {
     } catch (error) {
         console.error('Error:', error);
         res.status(500).json({ success: false, message: 'Internal server error' });
-    }
-});
-
-// Endpoint for changing password
-app.post('/api/change-password/:userId', async (req, res) => {
-    const userId = globalUserId;
-    const { newPassword } = req.body;
-
-    const user = users.find(u => u.id === userId);
-
-    if (user) {
-        console.log('Updating password for user:', user.username);
-
-        try {
-            // Hash the new password using bcrypt
-            const hashedPassword = await bcrypt.hash(newPassword, 10);
-            user.password = hashedPassword;
-
-            await fs.promises.writeFile('users.json', JSON.stringify(users, null, 2), 'utf-8');
-
-            console.log('Password changed successfully');
-            res.json({ success: true, message: 'Password changed successfully' });
-        } catch (error) {
-            console.error('Error writing to file:', error);
-            res.status(500).json({ success: false, message: 'Internal server error' });
-        }
-    } else {
-        console.log('User not found for ID:', userId);
-        res.status(404).json({ success: false, message: 'User not found' });
     }
 });
 
