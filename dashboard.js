@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         if (newEmail && isValidEmail(newEmail)) {
             // Make an AJAX request to update the email on the server
-            fetch(`/api/change-email/${globalUserId}`, {
+            fetch(`http://localhost:5500/api/change-email/${globalUserId}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
