@@ -85,6 +85,35 @@ app.put('/api/profile/:userId', (req, res) => {
     }
 });
 
+// Endpoint for changing email
+app.post('/api/change-email/:userId', (req, res) => {
+    const userId = req.params.userId;
+    const { newEmail } = req.body;
+
+    const user = users.find(u => u.id === userId);
+
+    if (user) {
+        console.log('Updating email for user:', user.username);
+        console.log('Old Email:', user.email);
+        
+        user.email = newEmail;
+
+        fs.promises.writeFile('users.json', JSON.stringify(users, null, 2), 'utf-8')
+            .then(() => {
+                console.log('Email changed successfully');
+                console.log('New Email:', newEmail);
+                res.json({ success: true, message: 'Email changed successfully', user });
+            })
+            .catch(error => {
+                console.error('Error writing to file:', error);
+                res.status(500).json({ success: false, message: 'Internal server error' });
+            });
+    } else {
+        console.log('User not found for ID:', userId);
+        res.status(404).json({ success: false, message: 'User not found' });
+    }
+});
+
 // Define a POST endpoint '/api/posts' to add new messages to the 'posts' array
 app.post('/api/posts', (req, res) => {
     // Retrieve the message from the request

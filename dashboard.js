@@ -37,19 +37,31 @@ document.addEventListener('DOMContentLoaded', function () {
         var newEmailInput = document.getElementById('new-email');
         var newEmail = newEmailInput.value;
     
-        // Validate the new email (you may want to add more robust validation)
         if (newEmail && isValidEmail(newEmail)) {
-            // Perform the logic to update the email on the server
-            // For now, we'll just log the new email to the console
-            console.log('New Email:', newEmail);
-            alert('Email changed successfully!');
+            // Make an AJAX request to update the email on the server
+            fetch(`/api/change-email/${userId}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ newEmail }),
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data.message);
+                    alert(data.message);
     
-            // Close the modal after changing email
-            closeEmailModal();
+                    // Close the modal after changing email
+                    closeEmailModal();
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
         } else {
             // Handle invalid email
             alert('Invalid email format');
         }
+    
     }
 
     // Function to validate email format
