@@ -36,14 +36,14 @@ document.addEventListener('DOMContentLoaded', function () {
     function changeEmail() {
         var newEmailInput = document.getElementById('new-email');
         var newEmail = newEmailInput.value;
-
+    
         // Validate the new email (you may want to add more robust validation)
         if (newEmail && isValidEmail(newEmail)) {
             // Perform the logic to update the email on the server
             // For now, we'll just log the new email to the console
             console.log('New Email:', newEmail);
             alert('Email changed successfully!');
-
+    
             // Close the modal after changing email
             closeEmailModal();
         } else {

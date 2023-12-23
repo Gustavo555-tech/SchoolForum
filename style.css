@@ -267,6 +267,7 @@ nav {
 
 #email-modal {
     /* Additional styling for your modal */
+    display: none;
     position: fixed;
     top: 50%;
     left: 50%;
@@ -276,8 +277,4 @@ nav {
     background-color: white;
     z-index: 1000;
     display: none; /* Initially hidden */
-}
-
-.hidden {
-    display: none !important;
 }
