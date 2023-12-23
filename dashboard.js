@@ -10,6 +10,8 @@ document.addEventListener('DOMContentLoaded', function () {
     var notificationsBtn = document.getElementById('notifications-btn');
     var notificationsMenu = document.getElementById('notifications-menu');
 
+    var globalUserId;
+
     // Change Email button click event
     document.getElementById('change-email-btn').addEventListener('click', function () {
         // Show the email modal
