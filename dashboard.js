@@ -18,34 +18,18 @@ document.addEventListener('DOMContentLoaded', function () {
         centerModal(emailModal);
     });
 
-    // Function to center the modal on the screen
-    function centerModal(modal) {
-        var windowWidth = window.innerWidth;
-        var windowHeight = window.innerHeight;
-        var modalWidth = modal.offsetWidth;
-        var modalHeight = modal.offsetHeight;
-
-        var leftPosition = (windowWidth - modalWidth) / 2;
-        var topPosition = (windowHeight - modalHeight) / 2;
-
-        modal.style.left = leftPosition + 'px';
-        modal.style.top = topPosition + 'px';
-    }
-
-    // Function to close the email modal
-    function closeEmailModal() {
-        var emailModal = document.getElementById('email-modal');
-        emailModal.style.display = 'none';
-    }
-
     // Add click event listener to the "Close" button in the modal
     document.getElementById('close-email-btn-modal').addEventListener('click', function () {
         closeEmailModal();
     });
 
     // Add click event listener to the "Change Email" button in the modal
-    document.getElementById('change-email-btn-modal').addEventListener('click', function () {
-        changeEmail();
+    document.getElementById('change-email-btn').addEventListener('click', function () {
+        console.log('Change Email button clicked');  // Add this line
+        // Show the email modal
+        var emailModal = document.getElementById('email-modal');
+        emailModal.style.display = 'block';
+        centerModal(emailModal);
     });
 
     // Function to handle changing email
@@ -73,6 +57,26 @@ document.addEventListener('DOMContentLoaded', function () {
         // Basic email validation (you may want to improve this)
         var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         return emailRegex.test(email);
+    }
+
+    // Function to center the modal on the screen
+    function centerModal(modal) {
+        var windowWidth = window.innerWidth;
+        var windowHeight = window.innerHeight;
+        var modalWidth = modal.offsetWidth;
+        var modalHeight = modal.offsetHeight;
+
+        var leftPosition = (windowWidth - modalWidth) / 2;
+        var topPosition = (windowHeight - modalHeight) / 2;
+
+        modal.style.left = leftPosition + 'px';
+        modal.style.top = topPosition + 'px';
+    }
+
+    // Function to close the email modal
+    function closeEmailModal() {
+        var emailModal = document.getElementById('email-modal');
+        emailModal.style.display = 'none';
     }
 
     // Voeg een click event listener toe aan de profielfoto
