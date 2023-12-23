@@ -23,8 +23,8 @@ document.addEventListener('DOMContentLoaded', function () {
         closeEmailModal();
     });
 
-    // Fetch user information when the page load
-    fetch('https://school-forum.com/api/get-user-info')
+    // Fetch user information when the page loads
+    fetch('http://localhost:5500/api/get-user-info')
         .then(response => response.json())
         .then(data => {
             if (data.success) {
