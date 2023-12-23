@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', function () {
         closeEmailModal();
     });
 
-    // Fetch user information when the page loads
+    // Fetch user information when the page load
     fetch('/api/get-user-info')
         .then(response => response.json())
         .then(data => {
