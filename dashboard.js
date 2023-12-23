@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     // Fetch user information when the page loads
-    fetch('/api/get-user-info')  // Assuming you have an endpoint to retrieve user info
+    fetch('/api/get-user-info')
         .then(response => response.json())
         .then(data => {
             if (data.success) {
@@ -45,35 +45,35 @@ document.addEventListener('DOMContentLoaded', function () {
         });
 
     // Function to handle changing email
-function changeEmail() {
-    var newEmailInput = document.getElementById('new-email');
-    var newEmail = newEmailInput.value;
+    function changeEmail() {
+        var newEmailInput = document.getElementById('new-email');
+        var newEmail = newEmailInput.value;
 
-    if (newEmail && isValidEmail(newEmail)) {
-        // Make an AJAX request to update the email on the server
-        fetch(`/api/change-email/${globalUserId}`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ newEmail }),  // Send newEmail in the request body
-        })
-            .then(response => response.json())
-            .then(data => {
-                console.log(data.message);
-                alert(data.message);
-
-                // Close the modal after changing email
-                closeEmailModal();
+        if (newEmail && isValidEmail(newEmail)) {
+            // Make an AJAX request to update the email on the server
+            fetch(`/api/change-email/${globalUserId}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ newEmail }),  // Send newEmail in the request body
             })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-    } else {
-        // Handle invalid email
-        alert('Invalid email format');
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data.message);
+                    alert(data.message);
+
+                    // Close the modal after changing email
+                    closeEmailModal();
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        } else {
+            // Handle invalid email
+            alert('Invalid email format');
+        }
     }
-}
 
     // Function to validate email format
     function isValidEmail(email) {
