@@ -77,42 +77,8 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-     // Change password button click event
-     document.getElementById('change-password-btn').addEventListener('click', function () {
-        // Show the password modal
-        var passwordModal = document.getElementById('password-modal');
-        passwordModal.style.display = 'block';
-        centerModal(passwordModal);
-    });
-
-    // Add click event listener to the "Close" button in the modal
-    document.getElementById('close-password-btn-modal').addEventListener('click', function () {
-        closePasswordModal();
-    });
-
-    // Fetch user information when the page loads
-    fetch('http://localhost:5500/api/get-user-info')
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                // Set the globalUserId
-                globalUserId = data.userId;
-                // Other code related to user info can go here
-
-                // Add click event listener to the "Change Password" button in the modal
-                document.getElementById('change-password-btn-modal').addEventListener('click', function () {
-                    changePassword();  // Call the changePassword function
-                });
-            } else {
-                console.error('Error fetching user info:', data.message);
-            }
-        })
-        .catch(error => {
-            console.error('Fetch error:', error);
-        });
-
      // Function to handle changing password
-     function changePassword() {
+    function changePassword() {
         // Ensure globalUserId is defined before accessing it
         if (globalUserId) {
             var newPasswordInput = document.getElementById('new-password');
@@ -120,7 +86,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             if (newPassword) {
                 // Make an AJAX request to update the password on the server
-                fetch(`http://localhost:5500/api/change-password/${globalUserId}`, {
+                fetch(`/api/change-password/${globalUserId}`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
