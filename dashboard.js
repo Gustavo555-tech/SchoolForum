@@ -23,49 +23,57 @@ document.addEventListener('DOMContentLoaded', function () {
         closeEmailModal();
     });
 
-    // Add click event listener to the "Change Email" button in the modal
-    document.getElementById('change-email-btn').addEventListener('click', function () {
-        console.log('Change Email button clicked');  // Add this line
-        // Show the email modal
-        var emailModal = document.getElementById('email-modal');
-        emailModal.style.display = 'block';
-        centerModal(emailModal);
-    });
+    // Fetch user information when the page loads
+    fetch('/api/get-user-info')  // Assuming you have an endpoint to retrieve user info
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Set the globalUserId
+                globalUserId = data.userId;
+                // Other code related to user info can go here
 
-    document.getElementById('change-email-btn-modal').addEventListener('click', function () {
-        changeEmail();  // Call the changeEmail function
-    });
-    
-    // Function to handle changing email
-    function changeEmail() {
-        var newEmailInput = document.getElementById('new-email');
-        var newEmail = newEmailInput.value;
-    
-        if (newEmail && isValidEmail(newEmail)) {
-            // Make an AJAX request to update the email on the server
-            fetch(`/api/change-email/${userId}`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ newEmail }),
-            })
-                .then(response => response.json())
-                .then(data => {
-                    console.log(data.message);
-                    alert(data.message);
-    
-                    // Close the modal after changing email
-                    closeEmailModal();
-                })
-                .catch(error => {
-                    console.error('Error:', error);
+                // Add click event listener to the "Change Email" button in the modal
+                document.getElementById('change-email-btn-modal').addEventListener('click', function () {
+                    changeEmail();  // Call the changeEmail function
                 });
-        } else {
-            // Handle invalid email
-            alert('Invalid email format');
-        }
+            } else {
+                console.error('Error fetching user info:', data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Fetch error:', error);
+        });
+
+    // Function to handle changing email
+function changeEmail() {
+    var newEmailInput = document.getElementById('new-email');
+    var newEmail = newEmailInput.value;
+
+    if (newEmail && isValidEmail(newEmail)) {
+        // Make an AJAX request to update the email on the server
+        fetch(`/api/change-email/${globalUserId}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ newEmail }),  // Send newEmail in the request body
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data.message);
+                alert(data.message);
+
+                // Close the modal after changing email
+                closeEmailModal();
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    } else {
+        // Handle invalid email
+        alert('Invalid email format');
     }
+}
 
     // Function to validate email format
     function isValidEmail(email) {

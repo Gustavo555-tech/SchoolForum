@@ -16,6 +16,9 @@ const users = [];
 const posts = [];
 const notifications = [];
 
+// Initialize global variable for userId
+let globalUserId;
+
 // Endpoint for login
 app.post('/api/index', (req, res) => {
     const { username, password } = req.body;
@@ -23,6 +26,9 @@ app.post('/api/index', (req, res) => {
     const user = users.find(u => u.username === username && u.password === password);
 
     if (user) {
+        // Assign userId to the global variable
+        globalUserId = user.id;
+
         res.json({ success: true, username: user.username, userId: user.id });
     } else {
         res.status(401).json({ success: false, message: 'Invalid username or password' });
@@ -48,6 +54,9 @@ app.post('/api/register', async (req, res) => {
         const newUser = { username, password, email, id: userId };
         users.push(newUser);
 
+        // Assign userId to the global variable
+        globalUserId = userId;
+
         try {
             await fs.promises.writeFile('users.json', JSON.stringify(users, null, 2), 'utf-8');
             res.json({ success: true, message: 'Registration successful', userId });
@@ -58,28 +67,16 @@ app.post('/api/register', async (req, res) => {
     }
 });
 
-// Endpoint for updating user profile
-app.put('/api/profile/:userId', (req, res) => {
-    const userId = req.params.userId;
-    const { username, email } = req.body;
+// Endpoint for getting user information
+app.get('/api/get-user-info', (req, res) => {
+    console.log('Handling /api/get-user-info request');
 
-    // Find the user in the array based on userId
+    const userId = globalUserId;
+
     const user = users.find(u => u.id === userId);
 
     if (user) {
-        // Update user profile
-        user.username = username || user.username;
-        user.email = email || user.email;
-
-        // Update the users.json file
-        fs.promises.writeFile('users.json', JSON.stringify(users, null, 2), 'utf-8')
-            .then(() => {
-                res.json({ success: true, message: 'Profile updated successfully', user });
-            })
-            .catch(error => {
-                console.error('Error writing to file:', error);
-                res.status(500).json({ success: false, message: 'Internal server error' });
-            });
+        res.json({ success: true, userId: user.id, username: user.username, email: user.email });
     } else {
         res.status(404).json({ success: false, message: 'User not found' });
     }
@@ -87,15 +84,19 @@ app.put('/api/profile/:userId', (req, res) => {
 
 // Endpoint for changing email
 app.post('/api/change-email/:userId', (req, res) => {
-    const userId = req.params.userId;
-    const { newEmail } = req.body;
+    try {
+        const userId = globalUserId;
+        const { newEmail } = req.body;
 
-    const user = users.find(u => u.id === userId);
+        const user = users.find(u => u.id === userId);
 
-    if (user) {
+        if (!user) {
+            return res.status(404).json({ success: false, message: 'User not found' });
+        }
+
         console.log('Updating email for user:', user.username);
         console.log('Old Email:', user.email);
-        
+
         user.email = newEmail;
 
         fs.promises.writeFile('users.json', JSON.stringify(users, null, 2), 'utf-8')
@@ -108,9 +109,9 @@ app.post('/api/change-email/:userId', (req, res) => {
                 console.error('Error writing to file:', error);
                 res.status(500).json({ success: false, message: 'Internal server error' });
             });
-    } else {
-        console.log('User not found for ID:', userId);
-        res.status(404).json({ success: false, message: 'User not found' });
+    } catch (error) {
+        console.error('Error:', error);
+        res.status(500).json({ success: false, message: 'Internal server error' });
     }
 });
 
