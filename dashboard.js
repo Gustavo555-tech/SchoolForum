@@ -32,6 +32,10 @@ document.addEventListener('DOMContentLoaded', function () {
         centerModal(emailModal);
     });
 
+    document.getElementById('change-email-btn-modal').addEventListener('click', function () {
+        changeEmail();  // Call the changeEmail function
+    });
+    
     // Function to handle changing email
     function changeEmail() {
         var newEmailInput = document.getElementById('new-email');
@@ -61,7 +65,6 @@ document.addEventListener('DOMContentLoaded', function () {
             // Handle invalid email
             alert('Invalid email format');
         }
-    
     }
 
     // Function to validate email format
