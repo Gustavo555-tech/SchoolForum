@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     // Fetch user information when the page load
-    fetch('/api/get-user-info')
+    fetch('https://school-forum.com/api/get-user-info')
         .then(response => response.json())
         .then(data => {
             if (data.success) {
