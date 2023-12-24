@@ -1,3 +1,3 @@
 [build]
-  command = "npm run build"  # Adjust this based on your build script
-  publish = "public"         # Specify the directory containing your build artifacts
+command = "npm run build"
+publish = "public"  # Adjust this based on your project structure
